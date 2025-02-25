@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   const client = new OpenAI({
     baseURL: "https://models.inference.ai.azure.com",
     apiKey: process.env.GITHUB_TOKEN
@@ -8,6 +8,12 @@ export default async (req, res) => {
 
   try {
     const { question } = req.body;
+    
+    // Validate input
+    if (!question) {
+      return res.status(400).json({ error: "Question is required" });
+    }
+
     const response = await client.chat.completions.create({
       messages: [
         { role: "system", content: "You are a helpful assistant" },
@@ -21,7 +27,7 @@ export default async (req, res) => {
 
     return res.status(200).json({ answer: response.choices[0].message.content });
   } catch (error) {
-    console.error("Error:", error);
-    return res.status(500).json({ error: "Failed to get response" });
+    console.error("API Error:", error);
+    return res.status(500).json({ error: error.message });
   }
-};
+}
