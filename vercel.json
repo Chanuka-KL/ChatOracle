@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1",
+      "continue": true
+    },
+    {
+      "src": "/api/ask",
+      "dest": "/api/ask"
+    }
+  ]
+}

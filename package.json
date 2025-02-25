@@ -1,0 +1,15 @@
+{
+  "name": "ai-assistant",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  },
+  "dependencies": {
+    "@vercel/node": "^4.0.0",
+    "openai": "^4.0.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
