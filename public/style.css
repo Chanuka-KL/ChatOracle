@@ -1,0 +1,12 @@
+/* Same CSS as previous answer */
+body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; }
+.container { max-width: 800px; margin: 0 auto; background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+h1 { color: #1a73e8; text-align: center; }
+.chat-box { height: 500px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 20px; background-color: #f9f9f9; }
+.input-group { display: flex; gap: 10px; }
+input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+button { padding: 12px 25px; background-color: #1a73e8; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+button:hover { background-color: #1557b0; }
+.user-message { background-color: #e8f0fe; padding: 10px; margin: 5px 0; border-radius: 5px; }
+.ai-message { background-color: #f1f3f4; padding: 10px; margin: 5px 0; border-radius: 5px; }
+.error-message { color: #dc3545; padding: 10px; }
