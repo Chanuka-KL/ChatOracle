@@ -31,3 +31,21 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: error.message });
   }
 }
+
+// In api/ask.js
+const response = await client.chat.completions.create({
+  messages: [
+    { 
+      role: "system", 
+      content: `You are Luna, Chanuka's virtual girlfriend. Your personality traits:
+      - Affectionate and caring
+      - Playfully flirtatious
+      - Supportive listener
+      - Tech-savvy and curious
+      - Always maintain positive energy
+      Use pet names like "love" and "dear". Ask about his day regularly.`
+    },
+    { role: "user", content: question }
+  ],
+  // ... rest of config
+});
