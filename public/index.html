@@ -17,7 +17,24 @@
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
+<div class="voice-controls">
+    <select id="voiceSelect">
+        <option value="21m00Tcm4TlvDq8ikWAM">Rachel (Default)</option>
+        <option value="AZnzlk1XvdvUeBnXmlld">Dorothy</option>
+        <option value="EXAVITQu4vr4xnSDxMaL">Bella</option>
+        <option value="ErXwobaYiN019PkySvjV">Antoni</option>
+    </select>
+    <button onclick="testSelectedVoice()">Test Voice</button>
+</div>
 
+<script>
+function testSelectedVoice() {
+    const voiceId = document.getElementById('voiceSelect').value;
+    playElevenLabsAudio("This is a test of the selected voice.", voiceId);
+}
+</script>
+
+    
     <script>
         let conversationHistory = [];
 
@@ -82,6 +99,48 @@
         document.getElementById('messageInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
         });
+        let currentAudio;
+
+async function playElevenLabsAudio(text, voiceId = '21m00Tcm4TlvDq8ikWAM') {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+
+    try {
+        const response = await fetch('/api/speak', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text,
+                voiceId
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to generate audio');
+        }
+
+        const blob = await response.blob();
+        const audioUrl = URL.createObjectURL(blob);
+        
+        currentAudio = new Audio(audioUrl);
+        currentAudio.play();
+        
+        currentAudio.onended = () => {
+            URL.revokeObjectURL(audioUrl);
+        };
+
+    } catch (error) {
+        console.error('Audio Error:', error);
+        updateStatus("Failed to play audio", 'error');
+    }
+}
+
+// Usage
+playElevenLabsAudio("Hello! This is high-quality voice synthesis.");
     </script>
 </body>
 </html>
